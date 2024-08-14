@@ -33,6 +33,7 @@ int Inserir_fim_LS     (Tno_ls **p_inicio, int info);
 int Inserir_meio_LS    (Tno_ls **p_inicio, int info, int pos);
 int Remover_inicio_LS  (Tno_ls **p_inicio);
 int Remover_meio_LS    (Tno_ls **p_inicio, int pos);
+int Remover_fim_LS     (Tno_ls **p_inicio);
 int Listar_LS          (Tno_ls *c_inicio);
 int Obter_pos_LS       (Tno_ls *c_inicio, int dado, int *pos);
 int Obter_Tamanho_LS   (Tno_ls *c_inicio, int *tam);
@@ -69,7 +70,7 @@ int main(void)
 		printf("5 -> Inicializar a lista (versao 2)\n");
 		printf("6 -> Inverter a lista\n");
 		printf("7 -> Remover no meio\n");
-		printf("8 -> ... \n");
+		printf("8 -> Remover no fim\n");
 		printf("9 -> Sair \n:");
 		scanf("%d", &q);     /* Ler a opcao do usuario */
 		switch(q) {
@@ -123,12 +124,15 @@ int main(void)
                     erro = Remover_meio_LS(&inicio, pos);
                     if (erro == 1)
                     {
-                        printf("\nLista vazia. Impossivel remover");
+                        printf("\nLista vazia. Impossivel remover no meio");
                     }
                     //getchar();
 					break;
-            case 8:
-			        // FAZER
+            case 8: erro = Remover_fim_LS(&inicio);
+                    if (erro == 1)
+                    {
+                        printf("\nLista vazia. Impossível remover no fim");
+                    }
                     //getchar();
 					break;
 			case 9: break;
@@ -356,7 +360,6 @@ int Remover_meio_LS (Tno_ls **p_inicio, int pos)
             return 2; //Posição maior da tamanho da lista
         if (pos == 1)
         {
-            
             Remover_inicio_LS(p_inicio);
         }
         else 
@@ -377,6 +380,26 @@ int Remover_meio_LS (Tno_ls **p_inicio, int pos)
             return 0;
         }
     }
+}
+
+int Remover_fim_LS(Tno_ls **p_inicio)
+{
+    Tno_ls *percorrer, *aux, *aux1;
+
+    if (*p_inicio == NULL)
+    {
+        printf("Lista vazia");
+        return 1;
+    } else 
+    {
+        int pos_aux = 1;
+        percorrer = *p_inicio;
+        while (pos_aux =! percorrer)
+        {
+
+        }
+    }
+    
 }
 
 /* -------------------------------------------------------------------------
