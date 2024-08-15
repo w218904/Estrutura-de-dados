@@ -94,6 +94,7 @@ int main(void)
     erro = Inserir_LS (&inicio, info);
     if (erro != 0) printf("Nao foi possivel a insercao. \n");
 
+    
 
     aux2 = inicio;
     for (i=1;i<=4;i++)
