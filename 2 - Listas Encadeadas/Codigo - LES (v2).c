@@ -40,6 +40,7 @@ int Obter_pos_LS       (Tno_ls *c_inicio, int dado, int *pos);
 int Obter_Tamanho_LS   (Tno_ls *c_inicio, int *tam);
 int Inverte_LS         (Tno_ls **p_inicio);
 int Inverte_LS_2       (Tno_ls **p_inicio);
+int Ver_Repete_Dado_LS (Tno_ls *c_inicio, int info);
 
 /* Variáveis global */
 
@@ -71,7 +72,9 @@ int main(void) {
 		printf("6 -> Inverter a lista\n");
 		printf("7 -> Remover no meio\n");
 		printf("8 -> Remover no fim\n");
-		printf("9 -> Sair \n:");
+		printf("9 -> Ver se dado repete\n");
+        printf("10 -> Inserir no meio\n");
+        printf("11 -> Sair \n:");
 		scanf("%d", &q);     /* Ler a opção do usuário */
 		switch(q) {
 			case 1: printf("Dado para insercao na lista: ");
@@ -124,19 +127,24 @@ int main(void) {
                     }
                     //getchar();
 					break;
-			case 9: break;
-            case 10: printf("Dado para insercao na lista: ");
+			case 9: printf("Insira o dado: \n");
+                    scanf("%d", &info);
+                    erro = Ver_Repete_Dado_LS(&inicio, info);
+                    //getchar();
+                    break;
+            case 10:printf("Dado para insercao na lista: ");
                     scanf("%d",&info);
                     printf("Posicao de insercao: ");
                     scanf("%d",&pos);
-                    erro = Inserir_meio_LS (&inicio, info, pos);
+                    erro = Inserir_meio_LS(&inicio, info, pos);
                     if (erro == 0) printf("Insercao realizada com sucesso\n");
                     //getchar();
 					break;
-			default: printf("\n\n Opcao nao valida");
+            case 11:break;
+			default:printf("\n\n Opcao nao valida");
 		}
 		//getchar();    /* Limpa o buffer de entrada */
-	} while ((q != 9) );
+	} while ((q != 11) );
 
 }
 
@@ -314,11 +322,11 @@ int Obter_Pos_LS (Tno_ls *c_inicio, int valor, int *pos) {
     *pos = 0;
 
     while (c_inicio != NULL) {
-     (*pos)++;
+        (*pos)++;
         if (valor == c_inicio->dado) {
             return 0;     /* dado encontrado */
         }
-     c_inicio = c_inicio -> prox;
+        c_inicio = c_inicio -> prox;
     }
 
     if (c_inicio != NULL) {
@@ -444,6 +452,7 @@ int Inverter_LS (Tno_ls **p_inicio) {
 }
 
 int Inverter_LS_2 (Tno_ls **p_inicio) {
+
     int i, erro, tam, info;
     Tno_ls *inicio_lista_aux;      /* lista auxiliar */
     erro = Obter_Tamanho_LS(*p_inicio, &tam);
@@ -463,4 +472,16 @@ int Inverter_LS_2 (Tno_ls **p_inicio) {
        *p_inicio = inicio_lista_aux;
     }
     return 0;
+}
+
+int Ver_Repete_Dado_LS (Tno_ls *c_inicio, int info) {
+
+    while (c_inicio != NULL) {
+        if (c_inicio -> dado == info) {
+            printf("O dado %d se repete na lista!", info);
+            return 0;
+        }
+        c_inicio = c_inicio -> prox;
+    }
+
 }
