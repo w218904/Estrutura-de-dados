@@ -40,7 +40,10 @@ int Obter_pos_LS       (Tno_ls *c_inicio, int dado, int *pos);
 int Obter_Tamanho_LS   (Tno_ls *c_inicio, int *tam);
 int Inverte_LS         (Tno_ls **p_inicio);
 int Inverte_LS_2       (Tno_ls **p_inicio);
-int Ver_Repete_Dado_LS (Tno_ls *c_inicio, int info);
+int Ver_Repete_Dado_LS (Tno_ls *c_inicio, int info, int *resp);
+int Maiorque_Dado_LS   (Tno_ls *c_inicio, int info, int *quant);
+int Inserir_Dados_LS   (Tno_ls **p_inicio);
+
 
 /* Variáveis global */
 
@@ -51,12 +54,11 @@ PRINCIPAL
 int main(void) {
 
 	int info;
-	int resp, pos;
+	int resp, pos, quant;
 	double erro; /* valor de erro retornado pelas funções */
 	Tno_ls *inicio;
 	int q;  /* receber a opção do usuário */
 	erro = Inicializar_LS (&inicio);
-
 	printf("Tamanho do no: %d\n",sizeof(Tno_ls));
 	getchar();
 	do {
@@ -74,7 +76,9 @@ int main(void) {
 		printf("8 -> Remover no fim\n");
 		printf("9 -> Ver se dado repete\n");
         printf("10 -> Inserir no meio\n");
-        printf("11 -> Sair \n:");
+        printf("11 -> Verifica a quantidade de dados maior que info\n");
+        printf("12 -> Adiciona dados na lista\n");
+        printf("13 -> Sair \n:");
 		scanf("%d", &q);     /* Ler a opção do usuário */
 		switch(q) {
 			case 1: printf("Dado para insercao na lista: ");
@@ -129,7 +133,8 @@ int main(void) {
 					break;
 			case 9: printf("Insira o dado: \n");
                     scanf("%d", &info);
-                    erro = Ver_Repete_Dado_LS(&inicio, info);
+                    erro = Ver_Repete_Dado_LS(&inicio, info, &resp);
+                    printf("%d", resp);
                     //getchar();
                     break;
             case 10:printf("Dado para insercao na lista: ");
@@ -140,7 +145,17 @@ int main(void) {
                     if (erro == 0) printf("Insercao realizada com sucesso\n");
                     //getchar();
 					break;
-            case 11:break;
+            case 11:printf("Insira o info: ");
+                    scanf("%d", &info);
+                    erro = Maiorque_Dado_LS(inicio, info, &quant);
+                    if (quant == 1) {
+                        printf("%d dado é maior que %d\n", quant, info);
+                    } else {
+                        printf("%d dados são maiores que %d\n", quant, info);
+                    }
+                    break;
+            case 12:int Inserir_Dados_LS(inicio);
+            case 13:break;
 			default:printf("\n\n Opcao nao valida");
 		}
 		//getchar();    /* Limpa o buffer de entrada */
@@ -474,14 +489,48 @@ int Inverter_LS_2 (Tno_ls **p_inicio) {
     return 0;
 }
 
-int Ver_Repete_Dado_LS (Tno_ls *c_inicio, int info) {
+int Ver_Repete_Dado_LS (Tno_ls *c_inicio, int info, int *resp) {
 
     while (c_inicio != NULL) {
-        if (c_inicio -> dado == info) {
-            printf("O dado %d se repete na lista!", info);
+        printf("Valor de c_inicio: %d\n", c_inicio->dado);
+        printf("Valor de info: %d\n", info);
+        if (c_inicio->dado == info) {
+            //printf("O dado %d se repete na lista!", info);
+            (*resp) = 1;
             return 0;
+        } else {
+            (*resp) = 0;
         }
-        c_inicio = c_inicio -> prox;
+        c_inicio = c_inicio->prox;
     }
 
+    return 0;
+}
+
+int Maiorque_Dado_LS (Tno_ls *c_inicio, int info, int *quant) {
+
+    //Tno_ls *percorre;
+    *quant = 0;
+
+    //percorre = c_inicio;
+    while (c_inicio != NULL) {
+        if (c_inicio->dado > info) {
+            (*quant)++;
+        }
+        c_inicio = c_inicio->prox;
+    }
+    
+    return 0;
+}
+
+int Inserir_Dados_LS   (Tno_ls **p_inicio) {
+
+    Tno_ls *aux;
+    aux = *p_inicio;
+
+    for (int i = 1; i < 11; i++)
+    {
+        Inserir_inicio_LS(&aux, i);
+    }
+    
 }
