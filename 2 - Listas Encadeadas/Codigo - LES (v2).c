@@ -133,7 +133,7 @@ int main(void) {
 					break;
 			case 9: printf("Insira o dado: \n");
                     scanf("%d", &info);
-                    erro = Ver_Repete_Dado_LS(&inicio, info, &resp);
+                    erro = Ver_Repete_Dado_LS(inicio, info, &resp);
                     printf("%d", resp);
                     //getchar();
                     break;
@@ -154,12 +154,15 @@ int main(void) {
                         printf("%d dados são maiores que %d\n", quant, info);
                     }
                     break;
-            case 12:int Inserir_Dados_LS(inicio);
+            case 12:erro = Inserir_Dados_LS(&inicio);
+                    printf("Dados inseridos!\n");
+                    Listar_LS(inicio);  // Listar a lista para verificar a inserção
+                    break;
             case 13:break;
 			default:printf("\n\n Opcao nao valida");
 		}
 		//getchar();    /* Limpa o buffer de entrada */
-	} while ((q != 11) );
+	} while ((q != 14) );
 
 }
 
@@ -525,12 +528,18 @@ int Maiorque_Dado_LS (Tno_ls *c_inicio, int info, int *quant) {
 
 int Inserir_Dados_LS   (Tno_ls **p_inicio) {
 
-    Tno_ls *aux;
-    aux = *p_inicio;
+    Tno_ls *aux = NULL;
+    int dado = 10;
 
-    for (int i = 1; i < 11; i++)
+    Inicializar_LS(&aux);
+
+    for (int i = 1; i <= 10; i++)
     {
-        Inserir_inicio_LS(&aux, i);
+        Inserir_inicio_LS(&aux, dado);
+        dado--;
     }
+
+    *p_inicio = aux;
     
+    return 0;
 }
