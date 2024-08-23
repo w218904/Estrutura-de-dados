@@ -495,8 +495,8 @@ int Inverter_LS_2 (Tno_ls **p_inicio) {
 int Ver_Repete_Dado_LS (Tno_ls *c_inicio, int info, int *resp) {
 
     while (c_inicio != NULL) {
-        printf("Valor de c_inicio: %d\n", c_inicio->dado);
-        printf("Valor de info: %d\n", info);
+        // printf("Valor de c_inicio: %d\n", c_inicio->dado);
+        // printf("Valor de info: %d\n", info);
         if (c_inicio->dado == info) {
             //printf("O dado %d se repete na lista!", info);
             (*resp) = 1;
