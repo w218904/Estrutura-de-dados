@@ -3,19 +3,22 @@
 
 
 
-typedef struct no{
+typedef struct no {
     int valor;
     struct no *proximo, *anterior;
-}No;
+} No;
 
 // procedimento para inserir no início
-void inserir_no_inicio(No **lista, int num){
+void inserir_no_inicio(No **lista, int num) {
     No *novo = malloc(sizeof(No));
 
-    if(novo){
+    if(novo) {
         novo->valor = num;
         novo->proximo = *lista;
         novo->anterior = NULL;
+        if (*lista) {
+            (*lista)->anterior = novo;
+        }
         *lista = novo;
     }
     else
@@ -23,21 +26,24 @@ void inserir_no_inicio(No **lista, int num){
 }
 
 // procedimento para inserir no fim
-void inserir_no_fim(No **lista, int num){
+void inserir_no_fim(No **lista, int num) {
     No *aux, *novo = malloc(sizeof(No));
 
-    if(novo){
+    if(novo) {
         novo->valor = num;
         novo->proximo = NULL;
 
         // é o primeiro?
-        if(*lista == NULL)
+        if(*lista == NULL) {
             *lista = novo;
-        else{
+            novo->anterior = NULL;
+        }
+        else {
             aux = *lista;
             while(aux->proximo)
                 aux = aux->proximo;
             aux->proximo = novo;
+            novo->anterior = aux;
         }
     }
     else
@@ -48,19 +54,22 @@ void inserir_no_fim(No **lista, int num){
 void inserir_no_meio(No **lista, int num, int ant){
     No *aux, *novo = malloc(sizeof(No));
 
-    if(novo){
+    if(novo) {
         novo->valor = num;
         // é o primeiro?
-        if(*lista == NULL){
+        if(*lista == NULL) {
             novo->proximo = NULL;
-            *lista = novo;
+            novo->anterior = NULL;
+            *lista = novo;            
         }
-        else{
+        else {
             aux = *lista;
             while(aux->valor != ant && aux->proximo)
                 aux = aux->proximo;
             novo->proximo = aux->proximo;
-            aux->proximo = novo;
+            aux->proximo->anterior = novo;
+            novo->anterior = aux;
+            aux->proximo = novo; 
         }
     }
     else

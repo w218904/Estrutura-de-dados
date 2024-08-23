@@ -38,10 +38,11 @@ int Listar_Invertido_LD     (Tno_ld *c_inicio);
 int Obter_pos_LD            (Tno_ld *c_inicio, int dado, int *pos);
 int Obter_Tamanho_LD        (Tno_ld *c_inicio, int *tam);
 int Inverter_LD             (Tno_ld **p_inicio);
+int Remover_metade_LED      (Tno_ld **p_inicio);
 
 
 /* ----------------------------------------------------------------------------
-Funções de apoio
+Funï¿½ï¿½es de apoio
 -----------------------------------------------------------------------------*/
 
 // Gerador aleatorio de dados
@@ -114,19 +115,23 @@ int main(void)
                     printf("\nInversao realizada !\n");
                     system("pause");
 					break;
+            case 7: erro = Remover_metade_LED(&ini);
+                    printf("\nMetade removida com sucesso!\n");
+                    system("pause");
+                    break;
             case 11:
                     min = 1;
                     max = 100;
                     t_ini = clock();
-                    for (i=1; i<=100000; i++)
+                    for (i=1; i<=1000; i++)
                     {
                         //info = gera_dado(min, max);
                         Inserir_inicio_LD (&ini, i);
-                        if ((i%1000)==0)
+                        if ((i%10)==0)
                         {
 
                             t_fim = clock() - t_ini;
-                            printf("Tempo de execucao: %0.3lf\n", ((double)t_fim)/((CLOCKS_PER_SEC/1000)));
+                            printf("Tempo de execucao: %0.3lf\n", ((double)t_fim)/((CLOCKS_PER_SEC/10)));
                         }
                     }
                     system("pause");
@@ -157,7 +162,7 @@ int Listar_LD (Tno_ld *c_inicio)
     }
     printf("\n");
 	return 0; /* sem erro */
-} /* Fim da função de MOSTRAR */
+} /* Fim da funï¿½ï¿½o de MOSTRAR */
 
 /* ------------------------------------------------------------------------------------
 LISTAR todos os elementos presentes na lista encadeada na ordem inversa
@@ -183,7 +188,7 @@ int Listar_Invertido_LD (Tno_ld *c_inicio)
     }
     printf("\n");
 	return 0; /* sem erro */
-} /* Fim da função de MOSTRAR */
+} /* Fim da funï¿½ï¿½o de MOSTRAR */
 
 
 /* ------------------------------------------------------------------------------------
@@ -193,7 +198,7 @@ int Inicializar_LD (Tno_ld **p_inicio)
 {
 	*p_inicio= NULL;
 	return 0; /* sem erro */
-} /* Fim da função de INICIALIZAR */
+} /* Fim da funï¿½ï¿½o de INICIALIZAR */
 
 // =================================================
 int Inicializar2_LD(Tno_ld **p_inicio)
@@ -240,13 +245,13 @@ int Obter_Tamanho_LD(Tno_ld *c_inicio, int *tam)
 }
 
 /* -------------------------------------------------------------------------------------
-INSERÇÃO
+INSERï¿½ï¿½O
 ---------------------------------------------------------------------------------------*/
 int Inserir_inicio_LD (Tno_ld **p_inicio, int info)
 {
     Tno_ld *no_novo;
 
-    /* Criacao do novo no - Alocação de memoria */
+    /* Criacao do novo no - Alocaï¿½ï¿½o de memoria */
     no_novo = (Tno_ld *) malloc(sizeof(Tno_ld));
     no_novo -> dado = info;
 
@@ -319,7 +324,7 @@ int Inserir_fim_LD (Tno_ld **p_inicio, int info)
 {
     Tno_ld *no_novo, *percorre;
 
-    /* Criacao do novo no - Alocação de memoria */
+    /* Criacao do novo no - Alocaï¿½ï¿½o de memoria */
     no_novo = (Tno_ld *) malloc(sizeof(Tno_ld));
     no_novo -> dado = info;
     no_novo -> prox = NULL;
@@ -334,7 +339,7 @@ int Inserir_fim_LD (Tno_ld **p_inicio, int info)
 	     {
 	         percorre = percorre -> prox;
 	     }
-	    percorre->prox = no_novo;  // ligação do ultimo com o novo
+	    percorre->prox = no_novo;  // ligaï¿½ï¿½o do ultimo com o novo
 	    no_novo -> ant = percorre; // liga o novo ultimo ao anterior
 	}
 	return 0;
@@ -422,12 +427,12 @@ int Remover_fim_LD (Tno_ld **p_inicio)
     }
 
 
-    while (percorre -> prox != NULL) // navegar até o último
+    while (percorre -> prox != NULL) // navegar atï¿½ o ï¿½ltimo
     {
         percorre = percorre -> prox;
     }
     penultimo = percorre -> ant;
-    free (percorre);              // liberando o último
+    free (percorre);              // liberando o ï¿½ltimo
     penultimo -> prox = NULL;     // no penultimo indicando fim de lista
     return 0;
 }
@@ -445,7 +450,7 @@ int Inverter_LD (Tno_ld **p_inicio)
     }
     else if(percorre->prox==NULL)
     {
-        return 0;//Caso a lista tenha apenas um nó.
+        return 0;//Caso a lista tenha apenas um nï¿½.
     }
     else
     {
@@ -458,9 +463,59 @@ int Inverter_LD (Tno_ld **p_inicio)
 
              if (aux1 == NULL) // o percorre esta no ultimo no
                 *p_inicio = percorre; // define novo inicio
-             // Avançar para o proximo no de inversao
+             // Avanï¿½ar para o proximo no de inversao
              percorre = percorre -> ant;
     	 }
     }
+    return 0;
+}
+
+int Remover_metade_LED(Tno_ld **p_inicio) {
+    Tno_ld *percorre;
+    int tam, pos_aux = 0;
+    
+    // Obter o tamanho da lista
+    Obter_Tamanho_LD(*p_inicio, &tam);
+    
+    if (tam == 0) return 0; // Lista vazia
+    
+    percorre = *p_inicio;
+    
+    // Se o tamanho da lista for 1, nÃ£o hÃ¡ nada para remover
+    if (tam == 1) {
+        free(percorre);
+        *p_inicio = NULL;
+        return 0;
+    }
+    
+    // Encontrar o ponto mÃ©dio
+    while (pos_aux < tam / 2) {
+        percorre = percorre->prox;
+        pos_aux++;
+    }
+    
+    // Se nÃ£o hÃ¡ nada para remover (lista com menos de 2 elementos)
+    if (percorre == NULL) return 0;
+
+    // Ajustar ponteiros para remover a metade da lista
+    Tno_ld *temp;
+    while (percorre) {
+        temp = percorre;
+        percorre = percorre->prox;
+
+        if (temp->ant) {
+            temp->ant->prox = temp->prox;
+        }
+        if (temp->prox) {
+            temp->prox->ant = temp->ant;
+        }
+        free(temp);
+    }
+    
+    // Atualizar o inÃ­cio da lista se necessÃ¡rio
+    if (*p_inicio == percorre) {
+        *p_inicio = NULL;
+    }
+    
     return 0;
 }
