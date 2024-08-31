@@ -41,6 +41,7 @@ int Listar_LS           (Tdescritorno_ls cdesc);
 int Obter_dado_LS       (Tdescritorno_ls cdesc, int pos, int *dado);
 int Obter_pos_LS        (Tdescritorno_ls cdesc, int dado, int *pos);
 int Obter_Tamanho_LS    (Tdescritorno_ls cdesc, int *tam);
+int Copia_lista         (Tdescritorno_ls *L1, Tdescritorno_ls *L2);
 
 /* Variaveis global */
 
@@ -54,7 +55,7 @@ int main(void)
 
 	int info;
 	int erro; /* valor de erro retornado pelas funcoes */
-	Tdescritorno_ls desc;
+	Tdescritorno_ls desc, cdesc;
 	int q;  /* receber a opcao do usuario */
 	erro = Inicializar_LS  (&desc);
 	do {
@@ -64,7 +65,8 @@ int main(void)
 		printf("3 -> Remover no inicio\n");
 		printf("4 -> Mostrar toda a lista \n");
 		printf("5 -> Inicializar a lista (versao 2)\n");
-		printf("6 -> Sair \n:");
+        printf("6 -> Copiar lista para outra lista\n");
+		printf("7 -> Sair \n:");
 		scanf("%d", &q);     /* Ler a opcao do usuario */
 		switch(q) {
 			case 1: printf("Dado para insercao na lista: ");
@@ -96,11 +98,16 @@ int main(void)
                     printf("\nLISTA VAZIA !\n");
                     system("pause");
 					break;
-			case 6: break;
+            case 6: erro = Copia_lista(&desc, &cdesc);
+                    if (erro ==0){
+                        printf("\nLista copiada com sucesso!\n");
+                    }
+                    break;
+			case 7: break;
 			default: printf("\n\n Opcao nao valida");
 		}
 		getchar();    /* Limpa o buffer de entrada */
-	} while ((q != 6) );
+	} while ((q != 7) );
 
 }
 
@@ -132,5 +139,24 @@ int Inserir_inicio_LS   (Tdescritorno_ls *pdesc, int info)
         no_novo -> prox = aux;    // ligando o novo com o 1o no
         pdesc -> tam = 1;
     }
+    return 0;
+}
+
+int Copia_lista (Tdescritorno_ls *L1, Tdescritorno_ls *L2) {
+
+    Tno_ls *aux, *aux2;
+
+    aux = L1->prim;
+    aux2 = L2->prim;
+    aux2->dado = aux->dado;
+    printf("\nLista 1: %d\nLista 2: %d", aux->dado, aux2->dado);
+    while (aux->prox)
+    {
+        aux2->dado = aux->dado;
+        printf("\nLista 1: %d\nLista 2: %d", aux->dado, aux2->dado);
+        aux = aux->prox;
+        aux2 = aux2->prox;
+    }
+    
     return 0;
 }

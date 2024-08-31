@@ -69,7 +69,7 @@ int main(void)
 	int q;  /* receber a opcao do usuario */
 	erro=Inicializar_LD (&ini);
 	do {
-	    system("cls");
+	    system("clear");
 	    printf("LISTA ENCADEADA DUPLA - LED");
 		printf("\n\nOpcoes: \n\n");
 		printf("1 -> Inserir no inicio \n");
