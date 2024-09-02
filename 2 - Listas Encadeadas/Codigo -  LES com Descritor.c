@@ -54,13 +54,14 @@ int main(void)
 {
 
 	int info;
-	int erro; /* valor de erro retornado pelas funcoes */
+	int erro, erro2; /* valor de erro retornado pelas funcoes */
 	Tdescritorno_ls desc, cdesc;
 	int q;  /* receber a opcao do usuario */
 	erro = Inicializar_LS  (&desc);
+    erro2 = Inicializar_LS  (&cdesc);
 	do {
-	    system("cls");
-	    printf("1 -> Inserir no inicio \n");
+	    //system("clear");
+	    printf("\n1 -> Inserir no inicio \n");
 		printf("2 -> Inserir no final\n");
 		printf("3 -> Remover no inicio\n");
 		printf("4 -> Mostrar toda a lista \n");
@@ -73,7 +74,7 @@ int main(void)
                     scanf("%d",&info);
                     erro=Inserir_inicio_LS (&desc, info);
                     if (erro == 0) printf("Insercao realizada com sucesso\n");
-                    system("pause");
+                    getchar();
 					break;
 			case 2: printf("Dado para insercao na lista: ");
                     scanf("%d",&info);
@@ -84,19 +85,19 @@ int main(void)
                     {
                         printf("\nLista vazia. Impossivel remover");
                     }
-                    system("pause");
+                    getchar();
                     break;
 			case 4: //erro=Listar_LS (ini);
                     if (erro==1)
                     {
                         printf("\nLista vazia. Impossivel listar");
                     }
-                    system("pause");
+                    getchar();
 					break;
 			case 5: //erro=Inicializar2_LS (&ini);
                     printf("\nInicializacao realizada com sucesso !\n");
                     printf("\nLISTA VAZIA !\n");
-                    system("pause");
+                    getchar();
 					break;
             case 6: erro = Copia_lista(&desc, &cdesc);
                     if (erro ==0){
@@ -137,26 +138,46 @@ int Inserir_inicio_LS   (Tdescritorno_ls *pdesc, int info)
         aux = pdesc -> prim;
         pdesc -> prim = no_novo;
         no_novo -> prox = aux;    // ligando o novo com o 1o no
-        pdesc -> tam = 1;
+        pdesc -> tam += 1;
     }
     return 0;
 }
 
+
+
 int Copia_lista (Tdescritorno_ls *L1, Tdescritorno_ls *L2) {
 
-    Tno_ls *aux, *aux2;
+    Tdescritorno_ls *aux;
+    Tno_ls *aux1, *aux2;
+    int aux3, aux4;
 
-    aux = L1->prim;
-    aux2 = L2->prim;
-    aux2->dado = aux->dado;
-    printf("\nLista 1: %d\nLista 2: %d", aux->dado, aux2->dado);
-    while (aux->prox)
-    {
-        aux2->dado = aux->dado;
-        printf("\nLista 1: %d\nLista 2: %d", aux->dado, aux2->dado);
-        aux = aux->prox;
-        aux2 = aux2->prox;
-    }
+    aux->prim = L1->prim;
+    
+    printf("%p", L1->prim);
+    printf("%p", aux->prim);
+
+/*     L2 = L1;
+
+    printf("%p\n", L1->prim);
+    printf("%p\n", L2->prim);
+    printf("%d\n", L1->tam);
+    printf("%d\n", L2->tam);
+    printf("%p\n", L1->ult);
+    printf("%p\n", L2->ult); */
+
+
+/*     L2->prim = L1->prim;
+    L2->tam = L1->tam;
+    L2->ult = L1->ult;
+
+    printf("%p\n", L1->prim);
+    printf("%p\n", L2->prim);
+    printf("%d\n", L1->tam);
+    printf("%d\n", L2->tam);
+    printf("%p\n", L1->ult);
+    printf("%p\n", L2->ult); */
+
+    printf("\nFim da função Copiar Lista\n");
     
     return 0;
 }
