@@ -22,24 +22,34 @@ typedef struct descritor_ls {
 Protótipos das funções
 ------------------------------------------------------------------------------*/
 int Inicializar_LS      (Tdescritorno_ls *pdesc);
+int Inicializar2_LS     (Tdescritorno_ls *pdesc);
 int Inserir_inicio_LS   (Tdescritorno_ls *pdesc, int info);
+int Inserir_fim_LS      (Tdescritorno_ls *pdesc, int info);
+int Inserir_meio_LS     (Tdescritorno_ls *pdesc, int info, int pos);
+int Remover_inicio_LS   (Tdescritorno_ls *pdesc);
+int Remover_meio_LS     (Tdescritorno_ls *pdesc, int pos);
+int Remover_fim_LS      (Tdescritorno_ls *pdesc);
 int Listar_LS           (Tdescritorno_ls cdesc);
+int Obter_dado_LS       (Tdescritorno_ls cdesc, int pos, int *dado);
+int Obter_pos_LS        (Tdescritorno_ls cdesc, int dado, int *pos);
+int Obter_Tamanho_LS    (Tdescritorno_ls cdesc, int *tam);
 int Copia_lista         (Tdescritorno_ls *L1, Tdescritorno_ls *L2);
 
 int main(void)
 {
 
 	int info;
-	int erro; /* valor de erro retornado pelas funções */
+	int erro, erro2; /* valor de erro retornado pelas funções */
 	Tdescritorno_ls desc, cdesc;
 	int q;  /* receber a opção do usuário */
 	erro = Inicializar_LS  (&desc);
+    erro2 = Inicializar_LS (&cdesc);
 
     do {
 	    system("clear");
         printf("\n");
 	    printf("1 -> Inserir no inicio \n");
-		printf("2 -> Inserir no final\n");
+		printf("2 -> Listar lista\n");
 		printf("3 -> Copiar lista para outra lista\n");
 		printf("4 -> Sair \n:");
 		scanf("%d", &q);     /* Ler a opção do usuário */
@@ -51,7 +61,7 @@ int main(void)
                     getchar();
 					break;
 			case 2: printf("\n------ Lista com descritor ------\n");
-                    int Listar_LS(cdesc);
+                    Listar_LS(cdesc);
                     getchar();
 			        break;
             case 3: erro = Copia_lista(&desc, &cdesc);
@@ -98,7 +108,14 @@ int Inserir_inicio_LS (Tdescritorno_ls *pdesc, int info) {
 
 }
 
-int Listar_LS (Tdescritorno_ls cdesc);
+int Listar_LS (Tdescritorno_ls cdesc) {
+
+    Tno_ls *aux;
+
+    aux = cdesc.prim;
+    printf("Valor: %d\n", cdesc.prim)
+
+}
 
 int Copia_lista (Tdescritorno_ls *L1, Tdescritorno_ls *L2) {
 
@@ -106,14 +123,18 @@ int Copia_lista (Tdescritorno_ls *L1, Tdescritorno_ls *L2) {
     Tno_ls *aux1, *aux2;
     int aux3, aux4;
 
-    //aux1->dado = L1->prim->dado;
     aux1 = L1->prim;
+    while (aux1)
+    {
+        //Inserir_inicio_LS(L2, aux1->dado);
+        aux1 = aux1->prox;
+    }
+    printf("%d\n", aux1->dado);
+    //printf("%d", L2->prim->dado);
+    //printf("%d", L2->ult->dado);
 
-    printf("%p\n", L1->prim);
-    //printf("%d\n", L1->prim->dado);
-    printf("%p\n", aux1);
-    //printf("%d\n", aux1->dado);
-    //printf("%d", aux->prim->dado);
+    //printf("%p\n", L1->prim);
+    //printf("%p\n", aux1);
 
     printf("\nFim da função Copiar Lista\n");
     
