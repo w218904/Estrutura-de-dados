@@ -39,11 +39,10 @@ int main(void)
 {
 
 	int info;
-	int erro, erro2; /* valor de erro retornado pelas funções */
+	int erro; /* valor de erro retornado pelas funções */
 	Tdescritorno_ls desc, cdesc;
 	int q;  /* receber a opção do usuário */
 	erro = Inicializar_LS  (&desc);
-    erro2 = Inicializar_LS (&cdesc);
 
     do {
 	    system("clear");
@@ -60,8 +59,15 @@ int main(void)
                     if (erro == 0) printf("Insercao realizada com sucesso\n");
                     getchar();
 					break;
-			case 2: printf("\n------ Lista com descritor ------\n");
-                    Listar_LS(cdesc);
+			case 2: printf("\n------ Lista com descritor ------\n\n");
+                    erro = Listar_LS(desc);
+                    if (erro == 0)
+                    {
+                        printf("\n\nFim da exibição da lista\n");
+                    } else {
+                        printf("\nImpossível listar, lista vazia!\n");
+                    }
+                    
                     getchar();
 			        break;
             case 3: erro = Copia_lista(&desc, &cdesc);
@@ -103,6 +109,9 @@ int Inserir_inicio_LS (Tdescritorno_ls *pdesc, int info) {
         no_novo -> prox = aux;    // ligando o novo nó com o 1º nó
         pdesc -> tam += 1;
     }
+
+    printf("Dado inserido: %d\n", no_novo->dado);
+
     return 0;
 
 
@@ -110,11 +119,19 @@ int Inserir_inicio_LS (Tdescritorno_ls *pdesc, int info) {
 
 int Listar_LS (Tdescritorno_ls cdesc) {
 
-    Tno_ls *aux;
+    if (cdesc.prim == NULL)
+    {
+        return 1;
+    }
+    
 
-    aux = cdesc.prim;
-    printf("Valor: %d\n", cdesc.prim)
+    while (cdesc.prim)
+    {
+        printf("%d\t", cdesc.prim->dado);
+        cdesc.prim = cdesc.prim->prox;
+    }
 
+    return 0;
 }
 
 int Copia_lista (Tdescritorno_ls *L1, Tdescritorno_ls *L2) {
@@ -123,13 +140,13 @@ int Copia_lista (Tdescritorno_ls *L1, Tdescritorno_ls *L2) {
     Tno_ls *aux1, *aux2;
     int aux3, aux4;
 
-    aux1 = L1->prim;
-    while (aux1)
-    {
-        //Inserir_inicio_LS(L2, aux1->dado);
-        aux1 = aux1->prox;
-    }
-    printf("%d\n", aux1->dado);
+    //aux1 = L1->prim;
+    //while (aux1)
+    //{
+    //    //Inserir_inicio_LS(L2, aux1->dado);
+    //    aux1 = aux1->prox;
+    //}
+    //printf("%d\n", aux1->dado);
     //printf("%d", L2->prim->dado);
     //printf("%d", L2->ult->dado);
 
