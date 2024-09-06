@@ -28,7 +28,7 @@ int Inserir_fim_LS      (Tdescritorno_ls *pdesc, int info);
 int Inserir_meio_LS     (Tdescritorno_ls *pdesc, int info, int pos);
 int Inserir_aleatorio_LS(Tdescritorno_ls *pdesc);
 int Remover_inicio_LS   (Tdescritorno_ls *pdesc);
-/* int Remover_meio_LS     (Tdescritorno_ls *pdesc, int pos); */
+int Remover_meio_LS     (Tdescritorno_ls *pdesc, int pos);
 int Remover_fim_LS      (Tdescritorno_ls *pdesc);
 int Listar_LS           (Tdescritorno_ls cdesc);
 /* int Obter_dado_LS       (Tdescritorno_ls cdesc, int pos, int *dado);
@@ -54,9 +54,10 @@ int main(void)
         printf("4 -> Inserir dados aleatórios na lista\n");
 		printf("5 -> Listar lista\n");
         printf("6 -> Remover no início da lista\n");
-        printf("7 -> Remover no final da lista\n");
-		printf("8 -> Copiar lista para outra lista\n");
-		printf("9 -> Sair \n:");
+        printf("7 -> Remover no meio da lista\n");
+        printf("8 -> Remover no final da lista\n");
+		printf("9 -> Copiar lista para outra lista\n");
+		printf("10 -> Sair \n:");
 		scanf("%d", &q);     /* Ler a opção do usuário */
 		switch(q) {
 			case 1: printf("Dado para insercão no início lista: ");
@@ -119,14 +120,26 @@ int main(void)
                     }
                     getchar();
                     break;
-            case 7: erro = Remover_fim_LS(&desc);
+            case 7: printf("Posição que deve ser removido: ");
+                    scanf("%d", &pos);
+                    erro = Remover_meio_LS(&desc, pos);
+                    if (erro == 0)
+                    {
+                        printf("Remoção no meio da lista bem sucedida\n");
+                    }
+                    else
+                    {
+                        printf("Não foi possível remover no meio da lista\n");
+                    }
+                    
+            case 8: erro = Remover_fim_LS(&desc);
                     if (erro == 0)
                     {
                         printf("Final removido com sucesso\n");
                     }
                     getchar();
                     break;
-            case 8: erro2 = Inicializar_LS(&cdesc);
+            case 9: erro2 = Inicializar_LS(&cdesc);
                     erro = Copia_lista(&desc, &cdesc);
                     if (erro == 0)
                     {
@@ -139,11 +152,11 @@ int main(void)
                     }
                     getchar();
                     break;
-			case 9: break;
+			case 10: break;
 			default: printf("\n\n Opcao nao valida");
 		}
 		getchar();    /* Limpa o buffer de entrada */
-	} while ((q != 9) );
+	} while ((q != 10));
 }
 
 int Inicializar_LS (Tdescritorno_ls *pdesc) {
@@ -309,7 +322,26 @@ int Remover_inicio_LS   (Tdescritorno_ls *pdesc) {
     return 0;
 }
 
-int Remover_fim_LS      (Tdescritorno_ls *pdesc) {
+int Remover_meio_LS (Tdescritorno_ls *pdesc, int pos) {
+
+    printf("Função Remover_meio_LS chamada\n");
+    Tno_ls *aux, *aux2;
+    int tam = 1;
+
+    aux = pdesc->prim;
+    while (tam < pos - 1)
+    {
+        aux = aux->prox;
+        tam++;
+    }
+    aux2 = aux->prox;
+    aux = aux2->prox;
+    free(aux2);
+
+    return 0;
+}
+
+int Remover_fim_LS (Tdescritorno_ls *pdesc) {
 
     Tno_ls *aux, *aux2;
 
