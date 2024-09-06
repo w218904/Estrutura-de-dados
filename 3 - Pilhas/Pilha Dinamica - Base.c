@@ -13,7 +13,7 @@ typedef struct no_pilha {
 }  Tno_pilha;
 
 
-// Tabela de codigo de erros
+// Tabela de código de erros
 // 0 - sem erro
 // 1 - ...
 // 2 - ...
@@ -42,7 +42,7 @@ int Listar (Tno_pilha *P1)
         P1 = P1 -> prox;
     }
       printf (" \n ");
-      system ("pause");
+      getchar();
 }
 
 
@@ -53,14 +53,14 @@ int main(void)
 {
 
 	int info;
-	int erro, resposta; /* valor de erro retornado pelas funcoes */
+	int erro, resposta; /* valor de erro retornado pelas funções */
 	Tno_pilha *ini;
 	Tno_pilha *P1, *P2, *P3;
 
-	int q;  /* receber a opcao do usuario */
+	int q;  /* receber a opção do usuário */
 	erro=Inicializar_pilha (&ini);
 	do {
-	    system("cls");
+	    system("clear");
 	    printf("PILHA\n");
 		printf("\n\nOpcoes:\n");
 		printf("1 -> Inserir \n");
@@ -70,7 +70,7 @@ int main(void)
 		printf("5 -> Verificar Vazio\n");
 		printf("9 -> Juntas pilhas\n");
 		printf("6 -> Sair \n\n:");
-		scanf("%d", &q);     /* Ler a opcao do usuario */
+		scanf("%d", &q);     /* Ler a opção do usuário */
 		switch(q) {
 		    case 9:
 		            Inicializar_pilha  (&P1);
@@ -89,14 +89,14 @@ int main(void)
 		            Listar (P1);
 		            Listar (P2);
 		            Listar (P3);
-		             system("pause");
+		            getchar();
 					break;
 
 			case 1: printf("Dado para insercao na Pilha: ");
                     scanf("%d",&info);
                     erro=Inserir_topo (&ini, info);
                     if (erro == 0) printf("Insercao realizada com sucesso\n");
-                    system("pause");
+                    getchar();
 					break;
             case 2: erro = Remover_topo (&ini);
                     if (erro==1)
@@ -108,7 +108,7 @@ int main(void)
             case 3: erro = Inicializar2_pilha (&ini);
                     printf("\nInicializacao realizada com sucesso !\n");
                     printf("\nPILHA VAZIA !\n");
-                    system("pause");
+                    getchar();
 					break;
 			case 4: erro= Obter_topo (ini, &info);
                     if (erro==1)
@@ -118,7 +118,7 @@ int main(void)
                     else {
                          printf("\nTopo: %d\n",info);
                     }
-                    system("pause");
+                    getchar();
 					break;
 			case 5: erro= Verifica_vazio (ini, &resposta);
                     if (resposta==1)
@@ -128,7 +128,7 @@ int main(void)
                     else {
                          printf("\nPilha nao vazia\n");
                     }
-                    system("pause");
+                    getchar();
 					break;
 			case 6: break;
 			default: printf("\n\n Opcao nao valida\n");
@@ -146,7 +146,7 @@ int Inicializar_pilha (Tno_pilha **inicio)
 {
 	*inicio= NULL;
 	return 0; /* sem erro */
-} /* Fim da fun��o de INICIALIZAR */
+} /* Fim da função de INICIALIZAR */
 
 // =================================================
 int Inicializar2_pilha(Tno_pilha **inicio)
@@ -167,22 +167,22 @@ int Inicializar2_pilha(Tno_pilha **inicio)
 }
 
 /* -------------------------------------------------------------------------------------
-INSER��O
+INSERÇÃO
 ---------------------------------------------------------------------------------------*/
 int Inserir_topo (Tno_pilha **inicio, int info)
 {
     Tno_pilha *no_novo;
 
-    /* Criacao do novo no - Aloca��o de memoria */
+    /* Criação do novo nó - Alocação de memória */
     no_novo = (Tno_pilha *) malloc(sizeof(Tno_pilha));
     no_novo -> dado = info;
 
 	if (*inicio==NULL)
-	{    // insercao em pilha vazia
+	{    // inserção em pilha vazia
 	    no_novo -> prox = NULL;
 	    *inicio = no_novo;
 	}
-	else { // insercao em pilha nao vazia
+	else { // inserção em pilha não vazia
 	     no_novo -> prox = *inicio;
 	    *inicio = no_novo;
 	}
@@ -191,14 +191,14 @@ int Inserir_topo (Tno_pilha **inicio, int info)
 
 
 /* -------------------------------------------------------------------------
-REMOCAO
+REMOÇÃO
 -------------------------------------------------------------------------*/
 int Remover_topo (Tno_pilha **inicio)
 {
     Tno_pilha *aux;
     if (*inicio == NULL)
     {
-         return 1;  /* pilha vazia, impossivel remover topo */
+         return 1;  /* pilha vazia, impossível remover topo */
     }
     else {
         aux = *inicio;
@@ -223,7 +223,7 @@ int Obter_topo(Tno_pilha *inicio, int *dado)
 int Verifica_vazio (Tno_pilha *inicio, int *resp)
 {
     if (inicio != NULL)
-       *resp = 0; // Pilha nao Vazia
+       *resp = 0; // Pilha não Vazia
     else
        *resp = 1; // Pilha Vazia
     return 0;
