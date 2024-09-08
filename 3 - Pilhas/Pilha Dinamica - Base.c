@@ -232,25 +232,45 @@ int Verifica_vazio (Tno_pilha *inicio, int *resp)
 // ================================================================
 int Juntar_pilhas      (Tno_pilha **P1, Tno_pilha **P2, Tno_pilha **P3) {
 
-    Tno_pilha *Paux;
-    Inicializar_pilha(&Paux);
+    Tno_pilha *Paux = NULL;
     int info;
 
+    printf("Inicio da função Juntar_pilhas\n");
     while (*P1)
     {
-        Inserir_topo(&Paux, Obter_topo(P1, &info));
-        Remover_topo(&P1);
+        if (Obter_topo(*P1, &info) == 0)
+        {
+            Inserir_topo(&Paux, info);
+        }
+        Remover_topo(P1);
     }
+
     while (Paux)
     {
-        Inserir_topo(&P3, Obter_topo(Paux, &info));
+        if (Obter_topo(Paux, &info) == 0)
+        {
+            Inserir_topo(P3, info);
+        }
         Remover_topo(&Paux);
     }
     while (*P2)
     {
-        Inserir_topo(&P3, Obter_topo(P2, &info));
-        Remover_topo(P2);
+        if(Obter_topo(*P2, &info) == 0)
+        {
+            Inserir_topo(&Paux, info);
+        }
+    Remover_topo(P2);
     }
+    while (Paux)
+    {
+        if (Obter_topo(Paux, &info) == 0)
+        {
+            Inserir_topo(P3, info);
+        }
+        Remover_topo(&Paux);
+    }
+    
+    printf("\nFim da função Juntar_pilhas\n\n");
 
     return 0;
 }
