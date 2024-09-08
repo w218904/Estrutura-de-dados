@@ -32,7 +32,7 @@ int Verifica_vazio         (Tno_pilha *inicio, int *resp);
 
 int Juntar_pilhas      (Tno_pilha **P1, Tno_pilha **P2, Tno_pilha **P3);
 
-// ========================
+// ================================================================
 int Listar (Tno_pilha *P1)
 {
     printf ("Pilha: ");
@@ -75,6 +75,7 @@ int main(void)
 		    case 9:
 		            Inicializar_pilha  (&P1);
 		            Inicializar_pilha  (&P2);
+                    Inicializar_pilha  (&P3);
 		            Inserir_topo    (&P1, 10);
 		            Inserir_topo    (&P1, 20);
 		            Inserir_topo    (&P1, 30);
@@ -85,7 +86,7 @@ int main(void)
                     Listar (P1);
 		            Listar (P2);
 		            printf ("--------------\n");
-		            //Juntar_pilhas (&P1, &P2, &P3);
+		            Juntar_pilhas (&P1, &P2, &P3);
 		            Listar (P1);
 		            Listar (P2);
 		            Listar (P3);
@@ -148,7 +149,7 @@ int Inicializar_pilha (Tno_pilha **inicio)
 	return 0; /* sem erro */
 } /* Fim da função de INICIALIZAR */
 
-// =================================================
+// // ================================================================
 int Inicializar2_pilha(Tno_pilha **inicio)
 {
     Tno_pilha *percorre, *aux;
@@ -208,7 +209,7 @@ int Remover_topo (Tno_pilha **inicio)
     }
 }
 
-// =================================================================
+// // ================================================================
 int Obter_topo(Tno_pilha *inicio, int *dado)
 {
     if (inicio != NULL)
@@ -226,5 +227,30 @@ int Verifica_vazio (Tno_pilha *inicio, int *resp)
        *resp = 0; // Pilha não Vazia
     else
        *resp = 1; // Pilha Vazia
+    return 0;
+}
+// ================================================================
+int Juntar_pilhas      (Tno_pilha **P1, Tno_pilha **P2, Tno_pilha **P3) {
+
+    Tno_pilha *Paux;
+    Inicializar_pilha(&Paux);
+    int info;
+
+    while (*P1)
+    {
+        Inserir_topo(&Paux, Obter_topo(P1, &info));
+        Remover_topo(&P1);
+    }
+    while (Paux)
+    {
+        Inserir_topo(&P3, Obter_topo(Paux, &info));
+        Remover_topo(&Paux);
+    }
+    while (*P2)
+    {
+        Inserir_topo(&P3, Obter_topo(P2, &info));
+        Remover_topo(P2);
+    }
+
     return 0;
 }
