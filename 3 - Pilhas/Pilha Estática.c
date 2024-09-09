@@ -26,16 +26,33 @@ int main() {
 
 int Inicializar_pilha (T_PILHA *inicio) {
 
-    T_PILHA pilha_aux = {.topo = -1, .item = {0}};
-
-    *inicio = pilha_aux;
-
-/*     //Outra opção
     inicio->topo = -1;
-    for(int i = 1; i < 5; i++) 
+
+    for(int i = 0; i <= 9; i++)
     {
         inicio->item[i] = 0;
-    }  */
+    }
+
+    return 0;
+}
+
+int Inicializar2_pilha (T_PILHA *inicio) {
+
+    T_PILHA pilha_aux = {.topo = -1, .item = {0}};
+    *inicio = pilha_aux;
+
+    return 0;
+
+}
+
+int Inserir_topo (T_PILHA *inicio, int info) {
+
+    if (inicio->topo >= 9) {
+        return -1;
+    }
+
+    inicio->topo++;
+    inicio->item[inicio->topo] = info;
 
     return 0;
 }
