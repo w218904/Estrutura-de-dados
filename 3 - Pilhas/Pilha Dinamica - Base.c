@@ -117,7 +117,7 @@ int main(void)
                         printf("\nPilha vazia. Impossivel consultar topo\n");
                     }
                     else {
-                         printf("\nTopo: %d\n",info);
+                         printf("\nTopo: %d\n", info);
                     }
                     getchar();
 					break;
