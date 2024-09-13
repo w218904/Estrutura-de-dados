@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define Tam_Max 10
 
 /* Pilha estática */
 
 typedef struct pilha{
        int topo;
-       int item[10];
+       int item[Tam_Max];
 } T_PILHA;
 
 /* Protótipos das funções */
@@ -19,44 +20,57 @@ int Verifica_vazio         (T_PILHA inicio, int resp);
 
 int main() {
 
-int info;
+    int info;
 	int erro, resposta; /* valor de erro retornado pelas funções */
-	T_PILHA *ini;
-	T_PILHA *P1, *P2, *P3;
+	T_PILHA ini;
 
 	int q;  /* receber a opção do usuário */
-	erro=Inicializar_pilha (ini);
+	erro = Inicializar_pilha (&ini);
 	do {
 	    system("clear");
 	    printf("PILHA\n");
 		printf("\n\nOpcoes:\n");
 		printf("1 -> Inserir \n");
-		printf("2 -> Remover\n");
-		printf("3 -> Inicializar\n");
-		printf("4 -> Consultar Topo \n");
-		printf("5 -> Verificar Vazio\n");
-		printf("6 -> Sair \n\n:");
+        printf("2 -> Listar\n");
+		printf("3 -> Remover\n");
+		printf("4 -> Inicializar\n");
+		printf("5 -> Consultar Topo \n");
+		printf("6 -> Verificar Vazio\n");
+		printf("7 -> Sair \n\n:");
 		scanf("%d", &q);     /* Ler a opção do usuário */
 		switch(q) {
 			case 1: printf("Dado para insercao na Pilha: ");
                     scanf("%d",&info);
-                    erro = Inserir_topo (ini, info);
+                    erro = Inserir_topo (&ini, info);
                     if (erro == 0) printf("Insercao realizada com sucesso\n");
                     getchar();
 					break;
-            case 2: erro = Remover_topo (ini);
+            case 2: printf("Valores na pilha estática:\n");
+                    erro = Listar_pilha(ini);
+                    if (erro == 0)
+                    {
+                        printf("Pilha exibida com sucesso\n");
+                    }
+                    else
+                    {
+                        printf("Não foi possível listar a pilha");
+                    }
+                    getchar();
+                    break;
+                    
+            /* case 3: erro = Remover_topo (ini);
                     if (erro==1)
                     {
                         printf("\nPilha vazia. Impossivel remover.\n");
                     }
-                    system("pause");
+                    getchar();
                     break;
-            case 3: erro = Inicializar2_pilha (ini);
+            case 4: erro = Inicializar2_pilha (ini);
                     printf("\nInicializacao realizada com sucesso !\n");
                     printf("\nPILHA VAZIA !\n");
                     getchar();
 					break;
-			case 4: erro = Obter_topo (ini, &info);
+			case 5: erro = Obter_topo (ini, &info);
                     if (erro==1)
                     {
                         printf("\nPilha vazia. Impossivel consultar topo\n");
@@ -66,7 +80,7 @@ int info;
                     }
                     getchar();
 					break;
-			case 5: erro= Verifica_vazio (ini, &resposta);
+			case 6: erro= Verifica_vazio (ini, &resposta);
                     if (resposta==1)
                     {
                         printf("\nPilha vazia\n");
@@ -75,12 +89,12 @@ int info;
                          printf("\nPilha nao vazia\n");
                     }
                     getchar();
-					break;
-			case 6: break;
+					break; */
+			case 7: break;
 			default: printf("\n\n Opcao nao valida\n");
 		}
 		getchar();    /* Limpa o buffer de entrada */
-	} while ((q != 6) );
+	} while ((q != 7) );
 
 
     return 0;
@@ -90,7 +104,7 @@ int Inicializar_pilha (T_PILHA *inicio) {
 
     inicio->topo = -1;
 
-    for(int i = 0; i <= 9; i++)
+    for(int i = 0; i <= Tam_Max; i++)
     {
         inicio->item[i] = 0;
     }
@@ -104,12 +118,11 @@ int Inicializar2_pilha (T_PILHA *inicio) {
     *inicio = pilha_aux;
 
     return 0;
-
 }
 
 int Inserir_topo (T_PILHA *inicio, int info) {
 
-    if (inicio->topo >= 9) {
+    if (inicio->topo >= Tam_Max - 1) {
         return -1;
     }
 
@@ -119,7 +132,25 @@ int Inserir_topo (T_PILHA *inicio, int info) {
     return 0;
 }
 
-int Remover_topo (T_PILHA *inicio) {
+int Listar_pilha (T_PILHA inicio) {
+     
+     if (inicio.item[inicio.topo] < 0)
+     {
+        printf("Lista vazia\n");
+     }
+    else
+    {
+        while (0 <= inicio.item[inicio.topo])
+        {
+            printf("%d\n", inicio.item[inicio.topo]);
+            inicio.item[inicio.topo--];
+        }
+     }
+    
+    return 0;
+}
+
+/* int Remover_topo (T_PILHA *inicio) {
 
     if(inicio->topo < 0) {
         return -1;
@@ -150,4 +181,4 @@ int Verificar_vazio (T_PILHA inicio, int resp) {
     }    
 
     return 0;    
-}
+} */

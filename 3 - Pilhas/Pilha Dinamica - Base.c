@@ -30,6 +30,7 @@ int Obter_topo             (Tno_pilha *inicio, int *dado);
 int Verifica_vazio         (Tno_pilha *inicio, int *resp);
 
 
+
 int Juntar_pilhas      (Tno_pilha **P1, Tno_pilha **P2, Tno_pilha **P3);
 
 // ================================================================
@@ -58,7 +59,7 @@ int main(void)
 	Tno_pilha *P1, *P2, *P3;
 
 	int q;  /* receber a opção do usuário */
-	erro=Inicializar_pilha (&ini);
+	erro = Inicializar_pilha (&ini);
 	do {
 	    system("clear");
 	    printf("PILHA\n");
@@ -117,7 +118,7 @@ int main(void)
                         printf("\nPilha vazia. Impossivel consultar topo\n");
                     }
                     else {
-                         printf("\nTopo: %d\n", info);
+                         printf("\nTopo: %d\n",info);
                     }
                     getchar();
 					break;

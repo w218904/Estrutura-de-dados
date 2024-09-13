@@ -31,16 +31,16 @@ int Remover_inicio_LS   (Tdescritorno_ls *pdesc);
 int Remover_meio_LS     (Tdescritorno_ls *pdesc, int pos);
 int Remover_fim_LS      (Tdescritorno_ls *pdesc);
 int Listar_LS           (Tdescritorno_ls cdesc);
-/* int Obter_dado_LS       (Tdescritorno_ls cdesc, int pos, int *dado);
+int Obter_dado_LS       (Tdescritorno_ls cdesc, int pos, int *dado);
 int Obter_pos_LS        (Tdescritorno_ls cdesc, int dado, int *pos);
-int Obter_Tamanho_LS    (Tdescritorno_ls cdesc, int *tam); */
+int Obter_Tamanho_LS    (Tdescritorno_ls cdesc, int *tam);
 int Copia_lista         (Tdescritorno_ls *L1, Tdescritorno_ls *L2);
 
 int main(void)
 {
 
-	int info, pos;
-	int erro, erro2; /* valor de erro retornado pelas funções */
+	int info, pos, tam;
+	int erro; /* valor de erro retornado pelas funções */
 	Tdescritorno_ls desc, cdesc;
 	int q;  /* receber a opção do usuário */
 	erro = Inicializar_LS (&desc);
@@ -48,125 +48,180 @@ int main(void)
     do {
 	    system("clear");
         printf("\n");
-	    printf("1 -> Inserir no início\n");
-        printf("2 -> Inserir no meio da lista\n");
-        printf("3 -> Inserir no final \n");
-        printf("4 -> Inserir dados aleatórios na lista\n");
-		printf("5 -> Listar lista\n");
-        printf("6 -> Remover no início da lista\n");
-        printf("7 -> Remover no meio da lista\n");
-        printf("8 -> Remover no final da lista\n");
-		printf("9 -> Copiar lista para outra lista\n");
-		printf("10 -> Sair \n:");
+	    printf("01 -> Inserir no início\n");
+        printf("02 -> Inserir no meio da lista\n");
+        printf("03 -> Inserir no final \n");
+        printf("04 -> Inserir dados aleatórios na lista\n");
+		printf("05 -> Listar lista\n");
+        printf("06 -> Remover no início da lista\n");
+        printf("07 -> Remover no meio da lista\n");
+        printf("08 -> Remover no final da lista\n");
+		printf("09 -> Copiar lista para outra lista\n");
+        printf("10 -> Obter dado da lista\n");
+        printf("11 -> Obter posição do dado na lista\n");
+        printf("12 -> Obter o tamanho da lista\n");
+		printf("13 -> Sair \n:");
 		scanf("%d", &q);     /* Ler a opção do usuário */
 		switch(q) {
-			case 1: printf("Dado para insercão no início lista: ");
-                    scanf("%d",&info);
-                    erro = Inserir_inicio_LS (&desc, info);
-                    if (erro == 0) 
-                    {
-                        printf("Insercao realizada com sucesso\n");
-                    }
-                    getchar();
-					break;
-            case 2: printf("Dado para inserção no meio da lista: ");
-                    scanf("%d", &info);
-                    printf("Posição que deve ser inserido: ");
-                    scanf("%d", &pos);
-                    erro = Inserir_meio_LS(&desc, info, pos);
-                    if (erro == 0) 
-                    {
-                        printf("Inserção no meio da lista bem sucedida\n");
-                    } 
-                    else 
-                    {
-                        printf("Não foi possível inserir no meio da lista\n");
-                    }
-                    getchar();
-                    break;
-            case 3: printf("Dado para inserção no final da lista: ");
-                    scanf("%d", &info);
-                    erro = Inserir_fim_LS (&desc, info);
-                    getchar();
-                    break;
-            case 4: erro = Inserir_aleatorio_LS(&desc);
-                    if (erro == 0)
-                    {
-                        printf("Dados aleários inseridos na lista\n");
-                    } 
-                    else 
-                    {
-                        printf("Impossível inserir dados aleatórios\n");
-                    }
-                    getchar();
-                    break;
-			case 5: printf("\n------ Lista com descritor ------\n\n");
-                    erro = Listar_LS(desc);
-                    if (erro == 0)
-                    {
-                        printf("\n\nFim da exibição da lista\n");
-                    } 
-                    else 
-                    {
-                        printf("\nImpossível listar, lista vazia!\n");
-                    }
-                    
-                    getchar();
-			        break;
-            case 6: erro = Remover_inicio_LS(&desc);
-                    if (erro == 0)
-                    {
-                        printf("Início removido com sucesso\n");
-                    }
-                    getchar();
-                    break;
-            case 7: printf("Posição que deve ser removido: ");
-                    scanf("%d", &pos);
-                    erro = Remover_meio_LS(&desc, pos);
-                    if (erro == 0)
-                    {
-                        printf("Remoção no meio da lista bem sucedida\n");
-                    }
-                    else
-                    {
-                        printf("Não foi possível remover no meio da lista\n");
-                    }
-                    
-            case 8: erro = Remover_fim_LS(&desc);
-                    if (erro == 0)
-                    {
-                        printf("Final removido com sucesso\n");
-                    }
-                    getchar();
-                    break;
-            case 9: erro2 = Inicializar_LS(&cdesc);
-                    erro = Copia_lista(&desc, &cdesc);
-                    if (erro == 0)
-                    {
-                        printf("\nLista copiada com sucesso!\n");
-                        Listar_LS(cdesc);
-                    } 
-                    else 
-                    {
-                        printf("Lista vazia, impossível copiar");
-                    }
-                    getchar();
-                    break;
-			case 10: break;
-			default: printf("\n\n Opcao nao valida");
+			case 1: 
+                printf("Dado para insercão no início lista: ");
+                scanf("%d",&info);
+                erro = Inserir_inicio_LS (&desc, info);
+                if (erro == 0) 
+                {
+                    printf("Insercao realizada com sucesso\n");
+                }
+                getchar();
+                break;
+            case 2: 
+                printf("Dado para inserção no meio da lista: ");
+                scanf("%d", &info);
+                printf("Posição que deve ser inserido: ");
+                scanf("%d", &pos);
+                erro = Inserir_meio_LS(&desc, info, pos);
+                if (erro == 0) 
+                {
+                    printf("Inserção no meio da lista bem sucedida\n");
+                } 
+                else 
+                {
+                    printf("Não foi possível inserir no meio da lista\n");
+                }
+                getchar();
+                break;
+            case 3: 
+                printf("Dado para inserção no final da lista: ");
+                scanf("%d", &info);
+                erro = Inserir_fim_LS (&desc, info);
+                getchar();
+                break;
+            case 4: 
+                erro = Inserir_aleatorio_LS(&desc);
+                if (erro == 0)
+                {
+                    printf("Dados aleários inseridos na lista\n");
+                } 
+                else 
+                {
+                    printf("Impossível inserir dados aleatórios\n");
+                }
+                getchar();
+                break;
+			case 5: 
+                printf("\n------ Lista com descritor ------\n\n");
+                erro = Listar_LS(desc);
+                if (erro == 0)
+                {
+                    printf("\n\nFim da exibição da lista\n");
+                } 
+                else 
+                {
+                    printf("\nImpossível listar, lista vazia!\n");
+                }
+                
+                getchar();
+                break;
+            case 6: 
+                erro = Remover_inicio_LS(&desc);
+                if (erro == 0)
+                {
+                    printf("Início removido com sucesso\n");
+                }
+                getchar();
+                break;
+            case 7: 
+                printf("Posição que deve ser removido: ");
+                scanf("%d", &pos);
+                erro = Remover_meio_LS(&desc, pos);
+                if (erro == 0)
+                {
+                    printf("Remoção no meio da lista bem sucedida\n");
+                }
+                else
+                {
+                    printf("Não foi possível remover no meio da lista\n");
+                }
+                getchar();
+                break;
+            case 8: 
+                erro = Remover_fim_LS(&desc);
+                if (erro == 0)
+                {
+                    printf("Final removido com sucesso\n");
+                }
+                getchar();
+                break;
+            case 9:
+                Inicializar_LS(&cdesc);
+                erro = Copia_lista(&desc, &cdesc);
+                if (erro == 0)
+                {
+                    printf("\nLista copiada com sucesso!\n");
+                    Listar_LS(cdesc);
+                } 
+                else 
+                {
+                    printf("Lista vazia, impossível copiar");
+                }
+                getchar();
+                break;
+            case 10:
+                printf("Selecione a posição que gostaria de obter o dado: ");
+                scanf("%d", &pos);
+                erro = Obter_dado_LS(desc, pos, &info);
+                if (erro == 0)
+                {
+                    printf("O dado dessa posição é: %d\n", info);
+                }
+                else
+                {
+                    printf("Não foi possível obter o dado dessa posição\n");
+                }
+                getchar();
+                break;
+            case 11:
+                printf("Insira o dado que gostaria de ober a posição: ");
+                scanf("%d", &info);
+                erro = Obter_pos_LS(desc, info, &pos);
+                if (erro == 0)
+                {
+                    printf("A posição desse dado é: %d\n", pos);
+                }
+                else
+                {
+                    printf("Não foi possível obter a posição desse dado\n");
+                }
+                getchar();
+                break;
+            case 12:
+                //printf("O tamanho da lista é: %d", desc.tam); //jeito mais simples
+                erro = Obter_Tamanho_LS(desc, &tam);
+                if (erro == 0)
+                {
+                    printf("O tamanho da lista é: %d", tam);
+                }
+                
+                getchar();
+                break;
+			case 13: 
+                break;
+			default: 
+                printf("\n\n Opcao não válida");
 		}
 		getchar();    /* Limpa o buffer de entrada */
-	} while ((q != 10));
+	} while ((q != 13));
 }
 
 int Inicializar_LS (Tdescritorno_ls *pdesc) {
     pdesc ->prim = NULL;
     pdesc ->ult = NULL;
     pdesc ->tam = 0;
+
+    return 0;
 }
 
 int Inserir_inicio_LS (Tdescritorno_ls *pdesc, int info) {
-    Tno_ls *no_novo, *aux;
+    Tno_ls *no_novo;
 
     /* Criação do novo nó - Alocação de memória */
     no_novo = (Tno_ls *) malloc(sizeof(Tno_ls));
@@ -384,5 +439,40 @@ int Copia_lista (Tdescritorno_ls *L1, Tdescritorno_ls *L2) {
         aux = aux->prox;
     }
     
+    return 0;
+}
+
+int Obter_dado_LS (Tdescritorno_ls cdesc, int pos, int *dado) {
+
+    int tam = 1;
+    Tno_ls *aux;
+
+    aux = cdesc.prim;
+    while (tam != pos)
+    {
+        aux = aux->prox;
+        tam++;
+    }
+    *dado = aux->dado;
+
+    return 0;
+}
+
+int Obter_pos_LS (Tdescritorno_ls cdesc, int dado, int *pos) {
+
+    *pos = 1;
+    while (cdesc.prim->dado != dado)
+    {
+        cdesc.prim = cdesc.prim->prox;
+        (*pos)++;
+    }
+
+    return 0;
+}
+
+int Obter_Tamanho_LS (Tdescritorno_ls cdesc, int *tam) {
+
+    *tam = cdesc.tam;
+
     return 0;
 }
