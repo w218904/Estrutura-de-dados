@@ -1,4 +1,3 @@
-//---------------------------------------------------------------------------
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -42,47 +41,30 @@ int insere(T_FILA *f, int x)
 {
 
     int erro = estado (*f);
-
     if ((erro == 0) || (erro == 2))
     {
-        if (f->fim == tamanho - 1)
-        {
-            (*f).fim = 0;
-        }
-        else
-        {
-            (*f).fim++;
-            (*f).item[(*f).fim]=x;// inser��o efetuada
+       (*f).fim++;
+       (*f).item[(*f).fim]=x;// inser��o efetuada
 
-            if ((*f).inicio == -1)
-                (*f).inicio = 0;
-            return 0;
-        }
+       if ((*f).inicio == -1)
+          (*f).inicio = 0;
+       return 0;
     }
     else
        return 1; // impossivel inser��o. overflow
 }
 
 // ==================================================================
-int remover(T_FILA *f) {
-
+int remover(T_FILA *f)
+{
     int erro = estado (*f);
     if (erro != 0)
     {
-        if ((*f).inicio == tamanho -1)
-        {
-            (*f).inicio = 0;
-        }
-        else
-        {
-            (*f).inicio++;  // remocao efetuada
-            return 0;
-        }
+      (*f).inicio++;  // remocao efetuada
+       return 0;
     }
     else
-    {
-        return 1; // impossivel remover. Underflow
-    }
+       return 1; // impossivel remover. Underflow
 }
 
 // ==================================================================
@@ -123,7 +105,7 @@ int main(void)
 
 	int q;  /* receber a opcao do usuario */
 	do {
-	    system("clear");
+	    system("cls");
 	    printf("FILA Estatica \n");
 		printf("\n\nOpcoes: \n\n");
 		printf("1 -> Inicializa \n");
@@ -139,19 +121,19 @@ int main(void)
 			case 1: erro=inicializa (&s);
                     printf("\nInicializacao realizada com sucesso !\n");
                     printf("\nFila VAZIA \n");
-                    getchar();
+                    system("pause");
 					break;
 			case 2: printf("Dado para insercao: ");
                     scanf("%d",&info);
                     erro=insere(&s,info);
                     if (erro==1)
                        printf("\nFila cheia. Overflow\n");
-                    getchar();
+                    system("pause");
 			        break;
             case 3: erro=remover(&s);
                     if (erro==1)
                        printf("\nFila Vazia. Underflow\n");
-                    getchar();
+                    system("pause");
                     break;
 			case 4: erro=estado(s);
                     if (erro == 0)
@@ -160,12 +142,12 @@ int main(void)
 			           printf("\nA fila esta em condicoes de uso\n");
                     if (erro == 1)
 			           printf("\nA fila esta cheia.\n");
-                    getchar();
+                    system("pause");
 					break;
 			case 5: erro= listar(s);
 			        if (erro == 1)
 			           printf("\nA fila esta vazia.\n");
-			        getchar();
+			        system("pause");
 					break;
 			case 6: erro= obter_primeiro(s, &info);
 		        	if (erro == 0)
@@ -174,7 +156,7 @@ int main(void)
                     }
                     else
                        printf("fila vazia. Sem primeiro\n");
-                    getchar();
+                    system("pause");
 					break;
 			case 7:
 					break;
