@@ -87,26 +87,28 @@ int listar(T_FILA fila)
 {  
     int i,erro;
     erro = estado (fila);
-    if ((erro == 1) || (erro ==2))
+    if (erro != 0)
     {
-       for (i=fila.inicio; i<=fila.fim; i++)
-           printf("%d - ",fila.item[i]);
-           if (i == tamanho - 1)
-           {
-            i = 0;
-           }
-           
-       printf("\n");
-       return 0;
+        int i = fila.inicio;
+        do
+        {
+            printf("%d\t", fila.item[fila.inicio]);
+            fila.inicio = (fila.inicio + 1) % tamanho;
+        } while (fila.inicio != (fila.fim + 1) % tamanho);
+        printf("\n");
+        return 0;
     }
-    else return 1;  // não possível listar pois a fila esta vazia
+    else
+    {
+        return 1;  // não possível listar pois a fila esta vazia
+    } 
 }
 
 
 // ==================================================================
 int obter_primeiro(T_FILA fila, int *dado)
 {  int i;
-    if ((fila.inicio == -1 ) || (fila.inicio == tamanho) || (fila.inicio == fila.fim+1))
+    if (fila.inicio == -1 )
        return 1;   // fila vazia
     else {
        *dado =  fila.item[fila.inicio];
